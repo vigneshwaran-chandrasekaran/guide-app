@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { message as toaster } from 'antd';
 
 const allFruits = [
 	{
@@ -54,7 +55,13 @@ export const appSlice = createSlice({
 		},
 		removeFromCart: (state, { payload }) => {
 			console.log('removeFromCart payload', payload);
-			state.loading = false;
+			if (state?.cart?.[0]?.name === payload?.name) {
+				state?.cart?.shift();
+			} else if (state?.cart?.length === 0) {
+				toaster.error('Cart is empty');
+			} else {
+				toaster.error('Please select correct fruit');
+			}
 		},
 	},
 });

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { message as toaster } from 'antd';
+import { message as toaster } from 'antd';
 
 const initialState = {
 	me: {},
@@ -34,10 +34,20 @@ export const userSlice = createSlice({
 export const { setUser, logout } = userSlice.actions;
 
 export const userLogin = (values) => async () => {
-	console.log('values', values);
-	console.log('authData', authData);
-	setLocalData(values);
-	return values;
+	if (
+		(values?.name === authData?.user?.name &&
+			values?.password === authData?.user?.password) ||
+		(values?.name === authData?.user2?.name &&
+			values?.password === authData?.user2?.password)
+	) {
+		console.log('values', values);
+		setLocalData(values);
+		return values;
+	} else {
+		const error = 'Please enter valid credentials';
+		toaster.error(error);
+		throw new Error(error);
+	}
 };
 
 export const userLogout = () => async (dispatch) => {
