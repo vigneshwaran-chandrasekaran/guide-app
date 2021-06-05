@@ -36,9 +36,7 @@ export const { setUser, logout } = userSlice.actions;
 export const userLogin = (values) => async () => {
 	console.log('values', values);
 	console.log('authData', authData);
-
 	setLocalData(values);
-
 	return values;
 };
 
@@ -47,11 +45,11 @@ export const userLogout = () => async (dispatch) => {
 };
 
 export function setLocalData(UserData) {
+	console.log('setLocalData came', UserData);
 	localStorage.setItem(
 		process.env.REACT_APP_AUTH_KEY,
 		JSON.stringify(UserData)
 	);
-	console.log('setLocalData came', UserData);
 }
 
 export default userSlice.reducer;
