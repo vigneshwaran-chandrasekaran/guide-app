@@ -5,7 +5,7 @@ const initialState = {
 	me: {},
 };
 
-const authData = {
+export const authData = {
 	user: {
 		name: 'Admin',
 		permission: 'all',
@@ -42,6 +42,7 @@ export const userLogin = (values) => async () => {
 	) {
 		console.log('values', values);
 		setLocalData(values);
+		setUser(values);
 		return values;
 	} else {
 		const error = 'Please enter valid credentials';

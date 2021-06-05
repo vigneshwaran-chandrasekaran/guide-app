@@ -8,8 +8,6 @@ const allFruits = [
 		color: 'red',
 		colorHex: '#CA3526',
 		maxCount: 10,
-		minCount: 0,
-		inCart: 0,
 	},
 	{
 		id: 2,
@@ -17,8 +15,6 @@ const allFruits = [
 		color: 'gold',
 		colorHex: '#F6A128',
 		maxCount: 10,
-		minCount: 0,
-		inCart: 0,
 	},
 	{
 		id: 3,
@@ -26,8 +22,6 @@ const allFruits = [
 		color: 'purple',
 		colorHex: '#523584',
 		maxCount: 10,
-		minCount: 0,
-		inCart: 0,
 	},
 ];
 
@@ -37,6 +31,16 @@ const initialState = {
 	recentlyVisitedUrl: '/login',
 	cart: [],
 };
+
+function checkValidUser() {
+	const user = JSON.parse(localStorage.getItem('userInfo'));
+	if (user?.name === 'Admin') {
+		return true;
+	} else {
+		toaster.error('You are not a admin user');
+		return false;
+	}
+}
 
 export const appSlice = createSlice({
 	name: 'app', // name of the reducer
@@ -50,17 +54,21 @@ export const appSlice = createSlice({
 			state.loading = false;
 		},
 		addToCart: (state, { payload }) => {
-			console.log('addToCart payload', payload);
-			state?.cart?.unshift(payload);
+			if (checkValidUser()) {
+				console.log('addToCart payload', payload);
+				state?.cart?.unshift(payload);
+			}
 		},
 		removeFromCart: (state, { payload }) => {
 			console.log('removeFromCart payload', payload);
-			if (state?.cart?.[0]?.name === payload?.name) {
-				state?.cart?.shift();
-			} else if (state?.cart?.length === 0) {
-				toaster.error('Cart is empty');
-			} else {
-				toaster.error('Please select correct fruit');
+			if (checkValidUser()) {
+				if (state?.cart?.[0]?.name === payload?.name) {
+					state?.cart?.shift();
+				} else if (state?.cart?.length === 0) {
+					toaster.error('Cart is empty');
+				} else {
+					toaster.error('Please select correct fruit');
+				}
 			}
 		},
 	},

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from 'store/appSlice';
 import styled from 'styled-components';
 
@@ -43,6 +43,11 @@ const ButtonsBox = styled.div`
 
 export default function FruitBox({ data }) {
 	const dispatch = useDispatch();
+	const cart = useSelector((state) => state?.app?.cart) || [];
+	const fruitCount =
+		cart?.filter((item) => item?.name === data?.name)?.length ?? 0;
+
+	console.log(data?.name + ' fruitCount', fruitCount);
 
 	const handleRemove = () => {
 		dispatch(removeFromCart(data));
@@ -55,10 +60,15 @@ export default function FruitBox({ data }) {
 	return (
 		<Card color={data?.colorHex}>
 			<p>{data?.name}</p>
-			<p>{data?.maxCount - data?.inCart}</p>
+			<p>{Number(data?.maxCount) - Number(fruitCount)}</p>
 			<ButtonsBox>
 				<Button onClick={handleRemove}>-</Button>
-				<Button onClick={handleAdd}>+</Button>
+				<Button
+					onClick={handleAdd}
+					disabled={fruitCount === data?.maxCount}
+				>
+					+
+				</Button>
 			</ButtonsBox>
 		</Card>
 	);
