@@ -23,7 +23,6 @@ const Section = styled.div`
 
 function Dashboard() {
 	const allFruits = useSelector((state) => state?.app?.allFruits) || [];
-	console.log('allFruits', allFruits);
 
 	return (
 		<>

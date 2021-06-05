@@ -40,7 +40,6 @@ export const userLogin = (values) => async () => {
 		(values?.name === authData?.user2?.name &&
 			values?.password === authData?.user2?.password)
 	) {
-		console.log('values', values);
 		setLocalData(values);
 		setUser(values);
 		return values;
@@ -56,7 +55,6 @@ export const userLogout = () => async (dispatch) => {
 };
 
 export function setLocalData(UserData) {
-	console.log('setLocalData came', UserData);
 	localStorage.setItem(
 		process.env.REACT_APP_AUTH_KEY,
 		JSON.stringify(UserData)

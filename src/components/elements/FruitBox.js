@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from 'store/appSlice';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Card = styled.div`
 	display: flex;
@@ -31,8 +31,14 @@ const Button = styled.button`
 	border: 0;
 	line-height: 50px;
 	cursor: pointer;
-	background-color: #81b216;
-	/* border: 1px solid white; */
+	${(props) =>
+		props.disabled
+			? css`
+					background-color: red;
+			  `
+			: css`
+					background-color: #81b216;
+			  `};
 `;
 
 const ButtonsBox = styled.div`
@@ -46,8 +52,6 @@ export default function FruitBox({ data }) {
 	const cart = useSelector((state) => state?.app?.cart) || [];
 	const fruitCount =
 		cart?.filter((item) => item?.name === data?.name)?.length ?? 0;
-
-	console.log(data?.name + ' fruitCount', fruitCount);
 
 	const handleRemove = () => {
 		dispatch(removeFromCart(data));

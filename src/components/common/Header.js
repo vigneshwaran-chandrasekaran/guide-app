@@ -32,7 +32,6 @@ function HeaderCustom() {
 	}, [location?.pathname, userData, userData?.name]);
 
 	const handleLogout = () => {
-		console.log('handle logout called');
 		dispatch(userLogout());
 	};
 

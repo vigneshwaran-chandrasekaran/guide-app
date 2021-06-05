@@ -32,17 +32,12 @@ function LoginForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	// console.log('store initialValues', initialValues);
 	function handleSubmit(values, { setErrors, resetForm, setSubmitting }) {
 		/**
 		 * below two keys no needed for post call
 		 */
-
-		console.log('values', values);
-
 		dispatch(userLogin(values, setErrors))
 			.then(() => {
-				setSubmitting(false);
 				resetForm();
 				history.push('/dashboard');
 			})
@@ -51,7 +46,7 @@ function LoginForm() {
 				console.log('Login form catch', e);
 			})
 			.finally(() => {
-				// setSubmitting(false);
+				setSubmitting(false);
 			});
 	}
 

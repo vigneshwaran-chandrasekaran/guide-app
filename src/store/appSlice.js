@@ -27,7 +27,6 @@ const allFruits = [
 
 const initialState = {
 	allFruits,
-	loading: false,
 	recentlyVisitedUrl: '/login',
 	cart: [],
 };
@@ -46,21 +45,12 @@ export const appSlice = createSlice({
 	name: 'app', // name of the reducer
 	initialState,
 	reducers: {
-		showLoader: (state) => {
-			console.log('show loader');
-			state.loading = true;
-		},
-		hideLoader: (state) => {
-			state.loading = false;
-		},
 		addToCart: (state, { payload }) => {
 			if (checkValidUser()) {
-				console.log('addToCart payload', payload);
 				state?.cart?.unshift(payload);
 			}
 		},
 		removeFromCart: (state, { payload }) => {
-			console.log('removeFromCart payload', payload);
 			if (checkValidUser()) {
 				if (state?.cart?.[0]?.name === payload?.name) {
 					state?.cart?.shift();
@@ -74,9 +64,6 @@ export const appSlice = createSlice({
 	},
 });
 
-export const { showLoader, hideLoader, addToCart, removeFromCart } =
-	appSlice.actions;
-
-// console.log('appSlice inside', appSlice);
+export const { addToCart, removeFromCart } = appSlice.actions;
 
 export default appSlice.reducer;

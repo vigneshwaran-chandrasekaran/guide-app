@@ -13,18 +13,16 @@ const Card = styled.div`
 	border-radius: 3px;
 	color: white;
 	min-width: 200px;
-	/* min-height: 250px; */
 	background-color: ${(props) => props.color};
 `;
 
 export default function CartBox() {
 	const cart = useSelector((state) => state?.app?.cart) || [];
-	console.log('cart', cart);
 
 	return (
 		<div>
-			<h3>Cart</h3>
-			{cart?.length === 0 && <p>Your cart is empty</p>}
+			<h3 className="center">Cart</h3>
+			{cart?.length === 0 && <p className="center">Your cart is empty</p>}
 			{cart?.map((item, index) => (
 				<Card key={index} color={item?.colorHex}>
 					<div>{item?.name}</div>

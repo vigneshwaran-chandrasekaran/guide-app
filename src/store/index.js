@@ -12,16 +12,11 @@ export function redirectToLogin() {
 	window.location = window.origin + '/login';
 }
 
-// console.log('userSlice reducer 1', userSlice);
-// console.log('appSlice reducer 2', appSlice);
-
 const combinedReducer = combineReducers({
 	app: appSlice,
 });
 
 const rootReducer = (state, action) => {
-	// console.log('rootReducer state', state);
-	// console.log('rootReducer action', action);
 	if (action.type === 'user/logout') {
 		state = undefined;
 		redirectToLogin();
