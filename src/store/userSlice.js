@@ -1,26 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { message as toaster } from 'antd';
-import { API } from 'api';
-import jsSha512 from 'js-sha512';
+// import { message as toaster } from 'antd';
 
 const initialState = {
-	userFormVisible: false,
-	editableUser: {},
 	me: {},
+};
+
+const authData = {
+	user: {
+		name: 'Admin',
+		permission: 'all',
+		password: 'Admin',
+	},
+	user2: {
+		name: 'MyName',
+		permission: 'none',
+		password: 'test',
+	},
 };
 
 export const userSlice = createSlice({
 	name: 'user', // name of the reducer
 	initialState,
 	reducers: {
-		setUserFormVisible: (state) => {
-			let data = state.userFormVisible;
-			state.userFormVisible = !data;
-		},
-		setSelectedUser: (state, { payload }) => {
-			console.log(payload);
-			state.editableUser = payload;
-		},
 		setUser: (state, { payload }) => {
 			state.me = payload;
 		},
@@ -30,102 +31,19 @@ export const userSlice = createSlice({
 	},
 });
 
-export const {
-	setUserFormVisible,
-	setSelectedUser,
-	setUser,
-	logout,
-} = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 
-export const getUser = () => async (dispatch) => {
-	const CREDENTIALS = {
-		url: `/users/me`,
-	};
-	return API.common(CREDENTIALS).then((response) => {
-		dispatch(setUser(response.data));
-		return response;
-	});
-};
+export const userLogin = (values) => async () => {
+	console.log('values', values);
+	console.log('authData', authData);
 
-export const userLogin = (values, setErrors) => async () => {
-	const { password, ...rest } = values;
-	const newVal = {
-		password: jsSha512(password),
-		...rest,
-	};
+	setLocalData(values);
 
-	const CREDENTIALS = {
-		url: `/users/login`,
-		method: 'post',
-		data: newVal,
-		setErrors,
-	};
-
-	return API.common(CREDENTIALS).then((response) => {
-		setLocalData(response.data);
-		return response;
-	});
-};
-
-export const userSignup = (values, setErrors) => async () => {
-	const { password, ...rest } = values;
-	const newVal = {
-		password: jsSha512(password),
-		...rest,
-	};
-
-	const CREDENTIALS = {
-		url: `/users`,
-		method: 'post',
-		data: newVal,
-		setErrors,
-	};
-
-	return API.common(CREDENTIALS).then((response) => {
-		setLocalData(response.data);
-		return response;
-	});
+	return values;
 };
 
 export const userLogout = () => async (dispatch) => {
 	dispatch(logout());
-};
-
-export const updateUser = (
-	values,
-	setErrors,
-	isNotProfileUpdate = false
-) => async (dispatch) => {
-	let url = isNotProfileUpdate ? `/users/${values?.id}` : 'users/me';
-
-	const { password, ...rest } = values;
-	let newVal;
-
-	if (password) {
-		newVal = {
-			password: jsSha512(password),
-			...rest,
-		};
-	} else {
-		newVal = {
-			...rest,
-		};
-	}
-
-	const CREDENTIALS = {
-		url,
-		method: 'put',
-		data: newVal,
-		setErrors,
-	};
-	return API.common(CREDENTIALS).then((response) => {
-		dispatch(setUser(response.data));
-		let text = isNotProfileUpdate
-			? `'User updated successfully`
-			: 'Profile updated successfully';
-		toaster.success(text);
-		return response;
-	});
 };
 
 export function setLocalData(UserData) {
@@ -135,7 +53,5 @@ export function setLocalData(UserData) {
 	);
 	console.log('setLocalData came', UserData);
 }
-
-// console.log('userSlice inside', userSlice);
 
 export default userSlice.reducer;

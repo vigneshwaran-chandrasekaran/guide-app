@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import store from 'store';
 import { ThemeProvider } from 'styled-components';
 import 'styles/style.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Router from './Router';
 
 const theme = {
 	main: 'mediumseagreen',
@@ -17,7 +17,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<App />
+				<Router />
 			</ThemeProvider>
 		</Provider>
 	</React.StrictMode>,

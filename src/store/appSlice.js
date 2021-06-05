@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	loading: false,
-	recentlyVisitedUrl: '/home',
+	recentlyVisitedUrl: '/login',
 };
 
 export const appSlice = createSlice({
@@ -16,13 +16,10 @@ export const appSlice = createSlice({
 		hideLoader: (state) => {
 			state.loading = false;
 		},
-		setRecentUrl: (state, { payload }) => {
-			state.recentlyVisitedUrl = payload;
-		},
 	},
 });
 
-export const { showLoader, hideLoader, setRecentUrl } = appSlice.actions;
+export const { showLoader, hideLoader } = appSlice.actions;
 
 // console.log('appSlice inside', appSlice);
 

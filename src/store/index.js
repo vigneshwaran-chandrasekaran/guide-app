@@ -1,7 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { redirectToLogin } from 'api/authentication';
 import appSlice from './appSlice';
 import { getPreloadedState, saveToLocalStorage } from './localStorage';
+
+export function redirectToLogin() {
+	/**
+	 * Refresh token session time also expired, so clear the local storage
+	 * then redirect the user to login page
+	 */
+
+	localStorage.clear();
+	window.location = window.origin + '/login';
+}
 
 // console.log('userSlice reducer 1', userSlice);
 // console.log('appSlice reducer 2', appSlice);
