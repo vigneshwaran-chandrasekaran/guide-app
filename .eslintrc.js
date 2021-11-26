@@ -78,6 +78,7 @@ module.exports = {
 				namedComponents: 'function-declaration',
 			},
 		],
+		'no-param-reassign': [2, { props: false }],
 	},
 	settings: {
 		'import/resolver': {

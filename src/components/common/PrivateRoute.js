@@ -1,9 +1,10 @@
 import { useAuth } from 'hooks';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { redirectToLogin } from 'store';
 
-function PrivateRoute({ children, location = {}, ...rest }) {
+function PrivateRoute({ children, ...rest }) {
 	const userData = useAuth();
 
 	if (userData && userData?.name) {
@@ -12,5 +13,12 @@ function PrivateRoute({ children, location = {}, ...rest }) {
 	redirectToLogin();
 	return false;
 }
+
+PrivateRoute.propTypes = {
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]).isRequired,
+};
 
 export default PrivateRoute;
