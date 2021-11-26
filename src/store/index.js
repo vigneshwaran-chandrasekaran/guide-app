@@ -3,34 +3,34 @@ import appSlice from './appSlice';
 import { getPreloadedState, saveToLocalStorage } from './localStorage';
 
 export function redirectToLogin() {
-  /**
-   * Refresh token session time also expired, so clear the local storage
-   * then redirect the user to login page
-   */
+	/**
+	 * Refresh token session time also expired, so clear the local storage
+	 * then redirect the user to login page
+	 */
 
-  localStorage.clear();
-  window.location = `${window.origin}/login`;
+	localStorage.clear();
+	window.location = `${window.origin}/login`;
 }
 
 const combinedReducer = combineReducers({
-  app: appSlice,
+	app: appSlice,
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === 'user/logout') {
-    state = undefined;
-    redirectToLogin();
-  }
-  return combinedReducer(state, action);
+	if (action.type === 'user/logout') {
+		state = undefined;
+		redirectToLogin();
+	}
+	return combinedReducer(state, action);
 };
 
 const store = configureStore({
-  reducer: rootReducer,
-  preloadedState: getPreloadedState(),
+	reducer: rootReducer,
+	preloadedState: getPreloadedState(),
 });
 
 function onStateChange() {
-  saveToLocalStorage(store.getState());
+	saveToLocalStorage(store.getState());
 }
 
 store.subscribe(onStateChange);
