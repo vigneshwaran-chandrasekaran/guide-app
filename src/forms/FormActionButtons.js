@@ -9,7 +9,6 @@ function FormActionButtons({
 	resetForm = null,
 	showCancel = true,
 	buttonAlignment = 'center',
-	showDebug = true,
 	saveText = 'Save',
 	cancelText = 'Cancel',
 }) {
@@ -52,6 +51,12 @@ function FormActionButtons({
 
 FormActionButtons.propTypes = {
 	isSubmitting: PropTypes.bool.isRequired,
+	isValid: PropTypes.bool,
+	showCancel: PropTypes.bool,
+	buttonAlignment: PropTypes.string,
+	saveText: PropTypes.string,
+	cancelText: PropTypes.string,
+	resetForm: PropTypes.func,
 };
 
 export { FormActionButtons };
