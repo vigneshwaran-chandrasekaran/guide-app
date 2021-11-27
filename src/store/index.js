@@ -35,8 +35,6 @@ function onStateChange() {
 
 store.subscribe(onStateChange);
 
-// console.log('store data', store);
-
 export default store;
 
 // https://stackoverflow.com/a/61943631/3882241

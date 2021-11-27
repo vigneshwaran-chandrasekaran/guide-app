@@ -24,7 +24,7 @@ export default function CartBox() {
 			<h3 className="center">Cart</h3>
 			{cart?.length === 0 && <p className="center">Your cart is empty</p>}
 			{cart?.map((item, index) => (
-				<Card key={index} color={item?.colorHex}>
+				<Card key={index.id} color={item?.colorHex}>
 					<div>{item?.name}</div>
 				</Card>
 			))}

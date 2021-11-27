@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import { Formik } from 'formik';
 import { Form, Input } from 'formik-antd';
-import { FormActionButtons } from 'forms';
+import { FormActionButtons } from 'forms/FormActionButtons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
