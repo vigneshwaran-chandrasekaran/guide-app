@@ -1,1 +1,1 @@
-export { setHeader } from './data-parser';
+export { getUserData, getUserInfo } from './data-parser';
